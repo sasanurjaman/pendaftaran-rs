@@ -32,7 +32,7 @@ class PatientRequest extends FormRequest
             'patient_status' => 'required',
             'patient_image' => 'image|required',
             'patient_is_bpjs' => 'required',
-            'patient_file' => 'image|required',
+            'patient_file' => 'image',
         ];
     }
 }
