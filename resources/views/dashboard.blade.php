@@ -17,6 +17,9 @@
         </div>
     </div>
     <div class="card-body">
+        @if (session()->has('success'))
+        {{ session('success')}}
+        @endif
         Start creating your amazing application!
     </div>
     <!-- /.card-body -->
