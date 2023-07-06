@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PatientRequest;
 use App\Models\Patient;
+use App\Models\Queue;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PatientController extends Controller
 {
@@ -29,12 +31,8 @@ class PatientController extends Controller
      */
     public function store(PatientRequest $request)
     {
-        // dd($request);
         $validated = $request->validated();
 
-        if ($request->file('')) {
-            # code...
-        }
         $validated['patient_image'] = $request
             ->file('patient_image')
             ->store('/patient');
@@ -46,6 +44,15 @@ class PatientController extends Controller
         }
 
         Patient::create($validated);
+
+        // create queue nomber
+        $date = date('Y-m-d');
+        $queue = Queue::where('created_at', 'LIKE', "%$date%")->count() + 1;
+
+        Queue::create([
+            'user_id' => Auth::user()->id,
+            'queue_number' => $queue,
+        ]);
 
         return redirect('/dashboard')->with(
             'success',
