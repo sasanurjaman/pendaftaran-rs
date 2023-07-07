@@ -15,7 +15,9 @@ class PatientController extends Controller
      */
     public function index()
     {
-        //
+        return view('patient.index', [
+            'patients' => Patient::all(),
+        ]);
     }
 
     /**
@@ -65,7 +67,7 @@ class PatientController extends Controller
      */
     public function show(Patient $patient)
     {
-        //
+        return $patient;
     }
 
     /**

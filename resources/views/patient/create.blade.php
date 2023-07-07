@@ -77,10 +77,10 @@
                                                     class="custom-select form-control @error('patient_gender') is-invalid @enderror"
                                                     required>
                                                     <option value="">-- Silahkan Pilih --</option>
-                                                    <option value="male" {{ old('patient_gender')=='male' ? 'selected'
-                                                        : '' }}>Pria</option>
-                                                    <option value="female" {{ old('patient_gender')=='female'
-                                                        ? 'selected' : '' }}>Wanita</option>
+                                                    <option value="Laki-laki" {{ old('patient_gender')=='Laki-laki'
+                                                        ? 'selected' : '' }}>Laki-laki</option>
+                                                    <option value="Perempuan" {{ old('patient_gender')=='Perempuan'
+                                                        ? 'selected' : '' }}>Perempuan</option>
                                                 </select>
                                                 @error('patient_gender')
                                                 <div class="invalid-feedback">
