@@ -1,17 +1,17 @@
 @extends('layouts.main')
 @section('content')
-@section('title', 'Daftar Pasien')
+@section('title', 'Daftar Dokter')
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Daftar Pasien</h1>
+                <h1>Daftar Dokter</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Daftar Pasien</li>
+                    <li class="breadcrumb-item active">Daftar Dokter</li>
                 </ol>
             </div>
         </div>
@@ -43,32 +43,24 @@
                         <th>Photo</th>
                         <th>Nama</th>
                         <th>Jenis Kelamin</th>
-                        <th>Status</th>
                         <th>Alamat</th>
-                        <th>BPJS</th>
+                        <th>Spesialisasi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($patients as $patient)
+                    @foreach ($doctors as $doctor)
                     <tr data-widget="expandable-table" aria-expanded="false">
-                        <td><a href="{{ route('patient.show', $patient->id)}}" class="badge badge-info"><i
+                        <td><a href="{{ route('doctor.show', $doctor->id)}}" class="badge badge-info"><i
                                     class="far fa-eye"></i></a></td>
                         <td>{{ $loop->iteration }}</td>
                         <td>
-                            <img height="50px" class="img-circle elevation-2" src="{{ $patient->patient_image}}"
-                                alt="{{ $patient->patient_name}}">
+                            <img height="50px" class="img-circle elevation-2" src="{{ $doctor->doctor_image}}"
+                                alt="{{ $doctor->doctor_name}}">
                         </td>
-                        <td>{{ $patient->patient_name}}</td>
-                        <td>{{ $patient->patient_gender}}</td>
-                        <td>{{ $patient->patient_status}}</td>
-                        <td>{{ $patient->patient_address}}</td>
-                        <td>
-                            @if ( $patient->patient_is_bpjs == 1)
-                            Ya
-                            @else
-                            Bukan
-                            @endif
-                        </td>
+                        <td>{{ $doctor->doctor_name}}</td>
+                        <td>{{ $doctor->doctor_gender}}</td>
+                        <td>{{ $doctor->doctor_address}}</td>
+                        <td>{{ $doctor->doctor_specialization}}</td>
                     </tr>
                     @endforeach
                 </tbody>
