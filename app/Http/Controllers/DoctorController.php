@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DoctorRequest;
 use App\Models\Doctor;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class DoctorController extends Controller
 {
@@ -22,15 +26,31 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        //
+        return view('doctor.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(DoctorRequest $request)
     {
-        //
+        if (Auth::user()->role_id == 1) {
+            $validateData = $request->validate([
+                'role_id' => 'required',
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:8',
+            ]);
+
+            $validateData['password'] = Hash::make($validateData['password']);
+
+            User::create($validateData);
+            return 'ok';
+        } else {
+            return Auth::user()->role_id;
+        }
+
+        return Auth::user()->role_id;
     }
 
     /**

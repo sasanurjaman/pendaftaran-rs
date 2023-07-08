@@ -31,6 +31,7 @@
 
                 <form action="{{ route('register')}}" method="post">
                     @csrf
+                    <input type="hidden" name="role_id" value="3">
                     <div class="input-group mb-3">
                         <input name="name" type="text" class="form-control @error('name') is-invalid @enderror"
                             value="{{ old('name')}}" placeholder="username min 8 karakter" required>
