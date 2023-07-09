@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PatientRequest;
 use App\Models\Patient;
 use App\Models\Queue;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -67,7 +68,13 @@ class PatientController extends Controller
      */
     public function show(Patient $patient)
     {
-        return $patient;
+        return view('patient.show', [
+            'patient' => User::join('patients', 'users.id', '=','patients.user_id')
+                ->join('roles', 'users.role_id', '=', 'roles.id')
+                ->select('users.*', 'patients.*', 'roles.role_name as role_name')
+                ->where('patients.id', $patient->id)
+                ->first(),
+        ]);
     }
 
     /**

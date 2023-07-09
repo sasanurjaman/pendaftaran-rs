@@ -30,5 +30,5 @@ Route::group(['middleware' => 'auth'], function () {
     );
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::resource('/patient', PatientController::class);
+    Route::resource('/doctor', DoctorController::class);
 });
-Route::resource('/doctor', DoctorController::class);

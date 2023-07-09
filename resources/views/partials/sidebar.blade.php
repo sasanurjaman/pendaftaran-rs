@@ -10,26 +10,14 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <img src="../../dist/img/user.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block">Alexander Pierce</a>
             </div>
-        </div>
-
-        <!-- SidebarSearch Form -->
-        <div class="form-inline">
-            <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-sidebar">
-                        <i class="fas fa-search fa-fw"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+        </div> --}}
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -53,6 +41,33 @@
                         </li>
                     </ul>
                 </li>
+
+                @php
+                $user_id = Auth::user()->id;
+                $patient = App\Models\Patient::where('user_id', $user_id)->first();
+                $doctor = App\Models\Doctor::where('user_id', $user_id)->first();
+                @endphp
+                @if (Auth::user()->role_id == 3)
+                <li class="nav-item">
+                    <a href="{{ route('patient.show', $patient->id) }}" class="nav-link">
+                        <i class="nav-icon fas fa-user-alt"></i>
+                        <p>
+                            Prfile
+                        </p>
+                    </a>
+                </li>
+                @else
+                @if (Auth::user()->role_id == 2)
+                <li class="nav-item">
+                    <a href="{{ route('doctor.show', $doctor->id) }}" class="nav-link">
+                        <i class="nav-icon fas fa-user-alt"></i>
+                        <p>
+                            Prfile
+                        </p>
+                    </a>
+                </li>
+                @endif
+                @endif
                 <li class="nav-item">
                     <a href="../widgets.html" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>

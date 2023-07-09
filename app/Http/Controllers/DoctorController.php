@@ -58,7 +58,18 @@ class DoctorController extends Controller
      */
     public function show(Doctor $doctor)
     {
-        //
+        return view('doctor.show', [
+            'doctor' => User::join(
+                'doctors',
+                'users.id',
+                '=',
+                'doctors.user_id'
+            )
+                ->join('roles', 'users.role_id', '=', 'roles.id')
+                ->select('users.*', 'doctors.*', 'roles.role_name as role_name')
+                ->where('doctors.id', $doctor->id)
+                ->first(),
+        ]);
     }
 
     /**
