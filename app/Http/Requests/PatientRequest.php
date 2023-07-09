@@ -30,7 +30,7 @@ class PatientRequest extends FormRequest
             'patient_age' => 'required',
             'patient_address' => 'required',
             'patient_status' => 'required',
-            'patient_image' => 'image|required',
+            'patient_image' => 'image',
             'patient_is_bpjs' => 'required',
             'patient_file' => 'image',
         ];

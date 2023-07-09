@@ -149,10 +149,11 @@
                                                     class="custom-select form-control @error('patient_status') is-invalid @enderror"
                                                     id="patient_status" required>
                                                     <option value="">-- Silahkan Pilih --</option>
-                                                    <option value="married" {{ old('patient_status')=='married'
+                                                    <option value="Menikah" {{ old('patient_status')=='Menikah'
                                                         ? 'selected' : '' }}>Menikah</option>
-                                                    <option value="not married" {{ old('patient_status')=='not married'
-                                                        ? 'selected' : '' }}>Belum Menikah</option>
+                                                    <option value="Belum Menikah" {{
+                                                        old('patient_status')=='Belum Menikah' ? 'selected' : '' }}>
+                                                        Belum Menikah</option>
                                                 </select>
                                                 @error('patient_status')
                                                 <div class="invalid-feedback">

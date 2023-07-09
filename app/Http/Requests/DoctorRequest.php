@@ -22,7 +22,13 @@ class DoctorRequest extends FormRequest
     public function rules(): array
     {
         return [
-                //
-            ];
+            'user_id' => 'required',
+            'doctor_name' => 'required|max:128',
+            'doctor_gender' => 'required',
+            'doctor_brithday' => 'required',
+            'doctor_address' => 'required',
+            'doctor_specialization' => 'required',
+            'doctor_image' => 'image',
+        ];
     }
 }

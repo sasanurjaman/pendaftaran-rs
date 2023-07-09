@@ -69,9 +69,18 @@ class PatientController extends Controller
     public function show(Patient $patient)
     {
         return view('patient.show', [
-            'patient' => User::join('patients', 'users.id', '=','patients.user_id')
+            'patient' => User::join(
+                'patients',
+                'users.id',
+                '=',
+                'patients.user_id'
+            )
                 ->join('roles', 'users.role_id', '=', 'roles.id')
-                ->select('users.*', 'patients.*', 'roles.role_name as role_name')
+                ->select(
+                    'users.*',
+                    'patients.*',
+                    'roles.role_name as role_name'
+                )
                 ->where('patients.id', $patient->id)
                 ->first(),
         ]);
@@ -82,15 +91,21 @@ class PatientController extends Controller
      */
     public function edit(Patient $patient)
     {
-        //
+        return view('patient.edit', [
+            'patient' => $patient,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Patient $patient)
+    public function update(PatientRequest $request, Patient $patient)
     {
-        //
+        $validated = $request->validated();
+
+        $patient->update($validated);
+
+        return redirect()->route('patient.show', $patient->id);
     }
 
     /**

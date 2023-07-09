@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DoctorRequest;
 use App\Models\Doctor;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -32,7 +31,7 @@ class DoctorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(DoctorRequest $request)
+    public function store(Request $request)
     {
         if (Auth::user()->role_id == 1) {
             $validateData = $request->validate([
@@ -77,7 +76,9 @@ class DoctorController extends Controller
      */
     public function edit(Doctor $doctor)
     {
-        //
+        return view('doctor.edit', [
+            'doctor' => $doctor,
+        ]);
     }
 
     /**
@@ -85,7 +86,23 @@ class DoctorController extends Controller
      */
     public function update(Request $request, Doctor $doctor)
     {
-        //
+        $validateData = $request->validate([
+            'user_id' => '',
+            'doctor_name' => '',
+            'doctor_gender' => '',
+            'doctor_brithday' => '',
+            'doctor_address' => '',
+            'doctor_specialization' => '',
+            'doctor_image' => '',
+        ]);
+
+        if ($request->file('doctor_image')) {
+            $validateData['doctor_image'] = $request->file()->store('/doctor');
+        }
+
+        $doctor->update($validateData);
+
+        return redirect()->route('doctor.show', $doctor->id);
     }
 
     /**
