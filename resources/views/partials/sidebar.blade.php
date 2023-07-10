@@ -26,7 +26,7 @@
         with font-awesome or any other icon font library -->
                 <li class="nav-item">
                     <a href="{{ route('home') }}" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="fa-th nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
                             <i class="right fas fa-angle-left"></i>
@@ -47,12 +47,13 @@
                 $patient = App\Models\Patient::where('user_id', $user_id)->first();
                 $doctor = App\Models\Doctor::where('user_id', $user_id)->first();
                 @endphp
+
                 @if (Auth::user()->role_id == 3)
                 <li class="nav-item">
                     <a href="{{ route('patient.show', $patient->id) }}" class="nav-link">
-                        <i class="nav-icon fas fa-user-alt"></i>
+                        <i class="fa-th nav-icon fas fa-user-alt"></i>
                         <p>
-                            Prfile
+                            Profil
                         </p>
                     </a>
                 </li>
@@ -60,14 +61,23 @@
                 @if (Auth::user()->role_id == 2)
                 <li class="nav-item">
                     <a href="{{ route('doctor.show', $doctor->id) }}" class="nav-link">
-                        <i class="nav-icon fas fa-user-alt"></i>
+                        <i class="fa-th nav-icon fas fa-user-alt"></i>
                         <p>
-                            Prfile
+                            Profil
                         </p>
                     </a>
                 </li>
                 @endif
                 @endif
+
+                <li class="nav-item">
+                    <a href="{{ route('schedule.index')}}" class="nav-link">
+                        <i class="fa-th nav-icon far fa-calendar-check"></i>
+                        <p>
+                            Jadwal Doktor
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="../widgets.html" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
