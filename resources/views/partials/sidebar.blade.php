@@ -78,6 +78,16 @@
                         </p>
                     </a>
                 </li>
+                @if (Auth::user()->role_id == 2 or Auth::user()->role_id == 1)
+                <li class="nav-item">
+                    <a href="{{ route('patient.index')}}" class="nav-link">
+                        <i class="fa-th nav-icon far fa-address-book"></i>
+                        <p>
+                            Daftar Pasien
+                        </p>
+                    </a>
+                </li>
+                @endif
 
                 @if (Auth::user()->role_id == 1)
                 <li class="nav-item">

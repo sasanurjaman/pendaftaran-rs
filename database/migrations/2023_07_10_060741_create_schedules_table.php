@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('doctor_id');
             $table->string('schedule_name');
-            $table->date('schedule_date');
+            $table->dateTime('schedule_date');
             $table->softDeletes();
             $table->timestamps();
         });

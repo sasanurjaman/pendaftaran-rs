@@ -95,7 +95,9 @@ class DoctorController extends Controller
         ]);
 
         if ($request->file('doctor_image')) {
-            $validateData['doctor_image'] = $request->file()->store('/doctor');
+            $validateData['doctor_image'] = $request
+                ->file('doctor_image')
+                ->store('/doctor');
         }
 
         $doctor->update($validateData);
