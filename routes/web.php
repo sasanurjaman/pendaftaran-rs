@@ -33,4 +33,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/patient', PatientController::class);
     Route::resource('/doctor', DoctorController::class);
     Route::resource('schedule', ScheduleController::class);
+    Route::post('/add', [DoctorController::class, 'add'])->name('add');
 });

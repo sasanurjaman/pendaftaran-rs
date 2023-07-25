@@ -6,7 +6,6 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Daftar Dokter</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -23,15 +22,12 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Title</h3>
+            <h3 class="d-inline">Daftar Dokter</h3>
 
             <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                    <i class="fas fa-times"></i>
-                </button>
+                <button class="btn btn-primary btn-create" href="{{ route('doctor.create')}}"><i
+                        class="fas fa-plus"></i> Tambah
+                    Dokter</button>
             </div>
         </div>
         <div class="card-body table-responsive">
@@ -76,6 +72,90 @@
 </section>
 <!-- /.content -->
 
+<!-- modal -->
+<div class="modal fade" id="modal-doctor">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Tambah Akun Dokter</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ route('add')}}" method="POST" class="modal-form">
+                <div class="modal-body">
+                    @csrf
+                    <input type="hidden" name="role_id" value="2">
+                    <div class="input-group mb-3">
+                        <input name="name" type="text" class="form-control @error('name') is-invalid @enderror"
+                            value="{{ old('name')}}" placeholder="username min 8 karakter" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                        @error('name')
+                        <div class="invalid-feedback input-group-append">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="input-group mb-3">
+                        <input name="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                            value="{{ old('email')}}" placeholder="Email" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                        @error('email')
+                        <div class="invalid-feedback input-group-append">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="input-group mb-3">
+                        <input name="password" type="password"
+                            class="form-control @error('password')is-invalid @enderror"
+                            placeholder="Password min 8 karakter" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        @error('password')
+                        <div class="invalid-feedback input-group-append">
+                            {{ $message}}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="input-group mb-3">
+                        <input name="password_confirmation" type="password" class="form-control"
+                            placeholder="password konfirmasi" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <div class="icheck-primary">
+                        <input type="checkbox" id="agreeTerms" name="terms" value="agree" checked>
+                        <label for="agreeTerms">
+                            I agree to the <a href="#">terms</a>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Tambah Akun</button>
+                </div>
+        </div>
+        </form>
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+
 @endsection
 @push('css')
 <!-- DataTables -->
@@ -97,11 +177,45 @@
 <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
 
 <script>
+    // datatable
     $(function () {
         $("#example1").DataTable({
         "responsive": true, "lengthChange": false, "autoWidth": true,
         "buttons": ["excel", "pdf", "print"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
+
+    // show modal create
+    $('.btn-create').click(function() {
+        $('#modal-doctor').modal('show');
+    })
+
+    
+    // toat fails seasion
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            $(document).Toasts('create', {
+                class: 'bg-danger',
+                title: 'Gagal!',
+                body: '{{ $error }}'
+            })
+        @endforeach
+    @endif
+    @if (session()->has('fails'))
+        $(document).Toasts('create', {
+            class: 'bg-danger',
+            title: 'Gagal!',
+            body: '{{ session('fails')}}'
+        })
+    @endif
+    
+    // toat success seasion
+    @if (session()->has('success')) 
+        $(document).Toasts('create', {
+            class: 'bg-succes',
+            title: 'Berhasil!',
+            body: '{{ session('success')}}'
+        })
+    @endif
 </script>
 @endpush

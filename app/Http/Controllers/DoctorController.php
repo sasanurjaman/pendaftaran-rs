@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DoctorRequest;
 use App\Models\Doctor;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -31,25 +32,22 @@ class DoctorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(DoctorRequest $request)
     {
-        if (Auth::user()->role_id == 1) {
-            $validateData = $request->validate([
-                'role_id' => 'required',
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|min:8',
-            ]);
+        $validateData = $request->validated();
 
-            $validateData['password'] = Hash::make($validateData['password']);
+        $validateData['doctor_image'] = $request
+            ->file('doctor_image')
+            ->store('/doctor');
 
-            User::create($validateData);
-            return 'ok';
-        } else {
-            return Auth::user()->role_id;
-        }
+        Doctor::create($validateData);
 
-        return Auth::user()->role_id;
+        return redirect()
+            ->route('doctor.index')
+            ->with(
+                'success',
+                "Data dokter $request->doctor_name berhasih disimpan!"
+            );
     }
 
     /**
@@ -111,5 +109,35 @@ class DoctorController extends Controller
     public function destroy(Doctor $doctor)
     {
         //
+    }
+    /**
+     * add new user doctor in storage
+     */
+    public function add(Request $request)
+    {
+        $validateData = $request->validate(
+            [
+                'role_id' => 'required',
+                'name' => 'required|string|min:4',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:8',
+            ],
+            [
+                'role_id' => 'Harus diisi',
+                'name' => 'nama minimal 4 karakter',
+                'email' => 'email telah terdaftar',
+                'password' => 'password min 8 karakter',
+            ]
+        );
+
+        $validateData['password'] = Hash::make($validateData['password']);
+
+        User::create($validateData);
+        return redirect()
+            ->route('doctor.index')
+            ->with(
+                'success',
+                "Akun Dokter $request->name berhasil ditambakan!"
+            );
     }
 }

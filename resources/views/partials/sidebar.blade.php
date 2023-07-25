@@ -57,7 +57,8 @@
                         </p>
                     </a>
                 </li>
-                @else
+                @endif
+
                 @if (Auth::user()->role_id == 2)
                 <li class="nav-item">
                     <a href="{{ route('doctor.show', $doctor->id) }}" class="nav-link">
@@ -68,7 +69,6 @@
                     </a>
                 </li>
                 @endif
-                @endif
 
                 <li class="nav-item">
                     <a href="{{ route('schedule.index')}}" class="nav-link">
@@ -78,6 +78,17 @@
                         </p>
                     </a>
                 </li>
+
+                @if (Auth::user()->role_id == 1)
+                <li class="nav-item">
+                    <a href="{{ route('doctor.index')}}" class="nav-link">
+                        <i class="fa-th nav-icon fas fa-user-md"></i>
+                        <p>
+                            Daftar Doktor
+                        </p>
+                    </a>
+                </li>
+                @endif
                 <li class="nav-item">
                     <a href="../widgets.html" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
