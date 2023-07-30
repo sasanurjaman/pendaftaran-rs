@@ -42,6 +42,17 @@
                     </ul>
                 </li>
 
+                @if (Auth::user()->role_id == 1)
+                <li class="nav-item">
+                    <a href="{{ route('queue.index') }}" class="nav-link">
+                        <i class="fa-th nav-icon far fa-list-alt"></i>
+                        <p>
+                            Antrian Pasien
+                        </p>
+                    </a>
+                </li>
+                @endif
+
                 @php
                 $user_id = Auth::user()->id;
                 $patient = App\Models\Patient::where('user_id', $user_id)->first();

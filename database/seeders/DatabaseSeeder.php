@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             PatientSeeder::class,
             DoctorSeeder::class,
             ScheduleSeeder::class,
+            QueueSeeder::class,
         ]);
     }
 }

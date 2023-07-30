@@ -17,13 +17,20 @@ class DoctorFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => fake()->unique()->numberBetween(7,10),
+            'user_id' => fake()
+                ->unique()
+                ->numberBetween(6, 10),
             'doctor_name' => fake()->name(),
-            'doctor_gender' => fake()->randomElement(['Laki-laki', 'Perempuan']),
-            'doctor_brithday' => fake()->dateTimeBetween('1990-01-01', '2012-01-01')->format('Y-m-d'),
+            'doctor_gender' => fake()->randomElement([
+                'Laki-laki',
+                'Perempuan',
+            ]),
+            'doctor_brithday' => fake()
+                ->dateTimeBetween('1990-01-01', '2012-01-01')
+                ->format('Y-m-d'),
             'doctor_address' => fake()->address(),
             'doctor_specialization' => fake()->word(),
-            'doctor_image' => 'https://source.unsplash.com/400x400/?people'
+            'doctor_image' => 'https://source.unsplash.com/400x400/?people',
         ];
     }
 }

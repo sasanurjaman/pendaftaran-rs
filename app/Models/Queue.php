@@ -8,7 +8,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Queue extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $guarded = [''];
+
+    protected $with = ['patient'];
+
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
+    }
 }

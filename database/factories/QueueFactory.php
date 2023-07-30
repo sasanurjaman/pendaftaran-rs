@@ -17,7 +17,9 @@ class QueueFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'patient_id' => fake()->numberBetween(1, 5),
+            'queue_number' => fake()->numberBetween(1, 5),
+            'queue_active' => 1,
         ];
     }
 }
