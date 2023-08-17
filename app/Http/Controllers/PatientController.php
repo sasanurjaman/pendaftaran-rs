@@ -6,7 +6,6 @@ use App\Http\Requests\PatientRequest;
 use App\Models\Patient;
 use App\Models\Queue;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PatientController extends Controller
@@ -76,10 +75,12 @@ class PatientController extends Controller
                 'patients.user_id'
             )
                 ->join('roles', 'users.role_id', '=', 'roles.id')
+                ->join('queues', 'patients.id', '=', 'queues.patient_id')
                 ->select(
                     'users.*',
                     'patients.*',
-                    'roles.role_name as role_name'
+                    'roles.role_name as role_name',
+                    'queues.queue_number as queue_number'
                 )
                 ->where('patients.id', $patient->id)
                 ->first(),
@@ -114,5 +115,19 @@ class PatientController extends Controller
     public function destroy(Patient $patient)
     {
         //
+    }
+
+    public function queuelatest()
+    {
+        $data = [];
+        $date = date('Y-m-d');
+        $queue_latest = Queue::where('created_at', 'LIKE', "%$date%")
+            ->where('queue_active', 1)
+            ->first();
+        $data['queue_latest'] = $queue_latest->queue_number;
+
+        $queue_count = Queue::where('created_at', 'LIKE', "%$date%")->count();
+        $data['queue_count'] = $queue_count;
+        return $data;
     }
 }

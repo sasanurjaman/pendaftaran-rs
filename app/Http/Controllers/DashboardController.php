@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Doctor;
+use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,12 +18,18 @@ class DashboardController extends Controller
     {
         if (Auth::user()->role_id == 2) {
             if (Doctor::where('user_id', Auth::user()->id)->count() == 1) {
-                return view('dashboard');
+                $doctor = Doctor::where('user_id', Auth::user()->id)->first();
+                return redirect()->route('doctor.show', $doctor->id);
             } else {
                 return redirect()->route('doctor.create');
             }
         } else {
-            return view('dashboard');
+            if (Auth::user()->role_id == 3) {
+                $patient = Patient::where('user_id', Auth::user()->id)->first();
+                return redirect()->route('patient.show', $patient->id);
+            } else {
+                return view('dashboard');
+            }
         }
     }
 }

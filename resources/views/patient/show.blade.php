@@ -20,6 +20,54 @@
 </section>
 
 <!-- Main content -->
+<section class="content container-fluid queue-content row">
+    <div class="col-12 col-sm-6 col-md-4">
+        <div class="info-box">
+            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cash-register"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Antrian Saya</span>
+                <span class="info-box-number">
+                    {{ $patient->queue_number }}
+                </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+
+    <!-- fix for small devices only -->
+    <div class="clearfix hidden-md-up"></div>
+
+    <div class="col-12 col-sm-6 col-md-4">
+        <div class="info-box mb-3">
+            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-phone-alt"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Nomor Antrian</span>
+                <span class="info-box-number queue_latest"></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-12 col-sm-6 col-md-4">
+        <div class="info-box mb-3">
+            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-hospital-user"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Jumlah Antrian</span>
+                <span class="info-box-number queue_count"></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+</section>
+
 <section class="content row">
     <!-- Default box -->
     <div class="col-md-4">
@@ -146,3 +194,19 @@
 <!-- /.modal -->
 
 @endsection
+
+@push('script')
+<script>
+    $(function() {
+            queuelatest();
+        })
+    setInterval(queuelatest, 1000);
+    
+    function queuelatest() {
+        $.get('/queuelatest', {}, function (data) {
+            $('.queue_count').text(data.queue_count);
+            $('.queue_latest').text(data.queue_latest);
+        })
+    }queuelatest
+</script>
+@endpush
