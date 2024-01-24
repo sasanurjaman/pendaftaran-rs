@@ -45,15 +45,17 @@ class PatientController extends Controller
                 ->store('/bpjs');
         }
 
-        Patient::create($validated);
+        $patien_id = Patient::insertGetId($validated);
 
         // create queue nomber
         $date = date('Y-m-d');
         $queue = Queue::where('created_at', 'LIKE', "%$date%")->count() + 1;
 
         Queue::create([
-            'user_id' => Auth::user()->id,
+            'patient_id' => $patien_id,
             'queue_number' => $queue,
+            'queue_active' => 1,
+            'created_at' => now(),
         ]);
 
         return redirect('/dashboard')->with(

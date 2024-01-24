@@ -20,6 +20,8 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900"
         rel="stylesheet">
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
 
     <!-- Bootstrap core CSS -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -51,7 +53,16 @@ https://templatemo.com/tm-557-grad-school
             <ul class="main-menu">
                 <li><a href="#section1">Home</a></li>
                 <li><a href="#section2">About Us</a></li>
+                @if (Route::has('login'))
+                @auth
+                <li><a href="{{ url('/dashboard') }}" class="external">Dasboard</a></li>
+                @else
                 <li><a href="{{ route('login') }}" class="external">Login</a></li>
+                @if (Route::has('register'))
+                <li><a href="{{ route('register') }}" class="external">Register</a></li>
+                @endif
+                @endauth
+                @endif
             </ul>
         </nav>
     </header>
@@ -60,89 +71,27 @@ https://templatemo.com/tm-557-grad-school
     <section class="section coming-soon" data-section="section1">
         <div class="container">
             <div class="row">
-                <div class="col-md-7 col-xs-12">
+                <div class="col-md-12 col-xs-12">
                     <div class="continer centerIt">
-                        <h4><em>Antrian Pasien</em> Dr. Soeharto Heerdjan</h4>
+                        <h4 class="text-center"><em>Antrian Pasien</em> Dr. Soeharto Heerdjan</h4>
                         <div class="row">
                             <div class="col-sm-4"></div>
                             <div class="col-sm-8">
                                 <div class="counter">
 
                                     <div class="days">
-                                        <div class="queue_count"></div>
+                                        <div class="queue_count text-white"></div>
                                         <span>Jumlah Antrian</span>
                                     </div>
 
                                     <div class="hours">
-                                        <div class="queue_latest"></div>
+                                        <div class="queue_latest text-white"></div>
                                         <span>Antrian Saat ini</span>
                                     </div>
 
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="right-content">
-                        <div class="top-content">
-                            <h6><em>Pendaftaran online</em> Pasien Dr. Soeharto Heerdjan</h6>
-                        </div>
-                        <form action="{{ route('register')}}" method="post">
-                            @csrf
-                            <input type="hidden" name="role_id" value="3">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <fieldset>
-                                        <input name="name" type="text"
-                                            class="form-control @error('name') is-invalid @enderror" id="name"
-                                            value="{{ old('name')}}" placeholder="username min 8 karakter" required>
-                                        @error('name')
-                                        <div class="invalid-feedback input-group-append">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-12">
-                                    <fieldset>
-                                        <input name="email" type="email"
-                                            class="form-control @error('email') is-invalid @enderror" id="email"
-                                            value="{{ old('email')}}" placeholder="email" required>
-                                        @error('email')
-                                        <div class="invalid-feedback input-group-append">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-12">
-                                    <fieldset>
-                                        <input name="password" type="password"
-                                            class="form-control @error('password') is-invalid @enderror" id="password"
-                                            value="{{ old('password')}}" placeholder="password min 8 karakter" required>
-                                        @error('password')
-                                        <div class="invalid-feedback input-group-append">
-                                            {{ $message }}
-                                        </div>
-                                        @enderror
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-12">
-                                    <fieldset>
-                                        <input name="password_confirmation" type="password"
-                                            class="form-control @error('password_confirmation') is-invalid @enderror"
-                                            id="password_confirmation" value="{{ old('password_confirmation')}}"
-                                            placeholder="password_confirmation" required>
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-12">
-                                    <fieldset>
-                                        <button type="submit" id="form-submit" class="button">Register</button>
-                                    </fieldset>
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>

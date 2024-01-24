@@ -77,8 +77,8 @@
             <div class="card-body box-profile">
                 <div class="text-center">
                     @if ($patient->patient_image)
-                    <img class="profile-user-img img-fluid img-circle" src="{{ $patient->patient_image}}"
-                        alt="{{ $patient->patient_name}}">
+                    <img class="profile-user-img img-fluid img-circle"
+                        src="{{ asset('storage/'. $patient->patient_image)}}" alt="{{ $patient->patient_name}}">
                     @else
                     <img class="profile-user-img img-fluid img-circle" src="/dist/img/user.png"
                         alt="{{ $patient->patient_name}}">
