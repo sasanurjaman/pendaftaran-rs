@@ -30,7 +30,6 @@ class DoctorFactory extends Factory
                 ->format('Y-m-d'),
             'doctor_address' => fake()->address(),
             'doctor_specialization' => fake()->word(),
-            'doctor_image' => 'https://source.unsplash.com/400x400/?people',
         ];
     }
 }

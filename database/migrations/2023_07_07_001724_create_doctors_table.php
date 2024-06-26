@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->date('doctor_brithday');
             $table->text('doctor_address');
             $table->string('doctor_specialization');
-            $table->string('doctor_image');
+            $table->string('doctor_image')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

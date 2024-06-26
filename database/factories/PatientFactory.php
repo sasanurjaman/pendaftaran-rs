@@ -35,9 +35,7 @@ class PatientFactory extends Factory
                 'Menikah',
                 'Belum Menikah',
             ]),
-            'patient_image' => 'https://source.unsplash.com/400x400/?people',
             'patient_is_bpjs' => fake()->randomElement([1, 0]),
-            'patient_file' => 'https://source.unsplash.com/400x400/?random',
         ];
     }
 }

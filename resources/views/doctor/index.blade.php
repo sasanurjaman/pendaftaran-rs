@@ -50,8 +50,13 @@
                                     class="far fa-eye"></i></a></td>
                         <td>{{ $loop->iteration }}</td>
                         <td>
-                            <img height="50px" class="img-circle elevation-2" src="{{ $doctor->doctor_image}}"
+                            @if ($doctor->doctor_image)
+                            <img height="50px" class="img-circle elevation-2"
+                                src="{{ asset('storage/'. $doctor->doctor_image)}}" alt="{{ $doctor->doctor_name}}">
+                            @else
+                            <img height="50px" class="img-circle elevation-2" src="{{ asset('/dist/img/user.png')}}"
                                 alt="{{ $doctor->doctor_name}}">
+                            @endif
                         </td>
                         <td>{{ $doctor->doctor_name}}</td>
                         <td>{{ $doctor->doctor_gender}}</td>

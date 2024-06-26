@@ -32,12 +32,12 @@
             </div>
             @endif
         </div>
+        @if (auth()->user()->role_id == 2)
         <div class="card-body table-responsive">
             <table id="example1" class="table table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama Doktor</th>
                         <th>Nama Kegiatan</th>
                         <th>Waktu Kegiatan</th>
                         @if (auth()->user()->role_id == 2)
@@ -49,7 +49,6 @@
                     @foreach ($schedules as $schedule)
                     <tr data-widget="expandable-table" aria-expanded="false">
                         <th>{{ $loop->iteration }}</th>
-                        <th>{{ $schedule->doctor->doctor_name}}</th>
                         <td>{{ $schedule->schedule_name}}</td>
                         <td>{{ $schedule->schedule_date}}</td>
                         @if (auth()->user()->role_id == 2)
@@ -73,6 +72,43 @@
                 </tbody>
             </table>
         </div>
+        @else
+        <div class="card-body table-responsive">
+            <table id="example1" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>No</th>
+                        <th>Photo</th>
+                        <th>Nama Doktor</th>
+                        <th>Spesialisasi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($doctors as $doctor)
+                    <tr data-widget="expandable-table" aria-expanded="false">
+                        <td>
+                            <a href="{{ route('doctor.show', $doctor->id)}}" class="badge badge-info"><i
+                                    class="far fa-eye"></i></a>
+                        </td>
+                        <td>
+                            @if ($doctor->doctor_image)
+                            <img height="40px" class="img-circle elevation-2"
+                                src="{{ asset('storage/' . $doctor->doctor_image)}}" alt="{{ $doctor->doctor_name}}">
+                            @else
+                            <img height="40px" class="img-circle elevation-2" src="{{ asset('/dist/img/user.png') }}"
+                                alt="{{ $doctor->doctor_name}}">
+                            @endif
+                        </td>
+                        <td>{{ $doctor->doctor_name}}</td>
+                        <td>{{ $doctor->doctor_gender}}</td>
+                        <td>{{ $doctor->doctor_specialization}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        @endif
         <!-- /.card-body -->
         <div class="card-footer">
             Footer

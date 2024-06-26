@@ -12,7 +12,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Profil Pasien</li>
+                    <li class="breadcrumb-item active">Profil Dokter</li>
                 </ol>
             </div>
         </div>
@@ -29,8 +29,8 @@
             <div class="card-body box-profile">
                 <div class="text-center">
                     @if ($doctor->doctor_image)
-                    <img class="profile-user-img img-fluid img-circle" src="{{ $doctor->doctor_image}}"
-                        alt="{{ $doctor->doctor_name}}">
+                    <img class="profile-user-img img-fluid img-circle"
+                        src="{{ asset('storage/' . $doctor->doctor_image)}}" alt="{{ $doctor->doctor_name}}">
                     @else
                     <img class="profile-user-img img-fluid img-circle" src="/dist/img/user.png"
                         alt="{{ $doctor->doctor_name}}">
@@ -93,6 +93,38 @@
         <!-- /.card -->
     </div>
     <!-- /.col -->
+
+    @if (auth()->user()->role_id <> 2 )
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="d-inline">Jadwal Doktor</h4>
+                </div>
+
+                <div class="card-body table-responsive">
+                    <table id="example1" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Kegiatan</th>
+                                <th>Waktu Kegiatan</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($schedules as $schedule)
+                            <tr data-widget="expandable-table" aria-expanded="false">
+                                <th>{{ $loop->iteration }}</th>
+                                <td>{{ $schedule->schedule_name}}</td>
+                                <td>{{ $schedule->schedule_date}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        @endif
 
 </section>
 <!-- /.content -->

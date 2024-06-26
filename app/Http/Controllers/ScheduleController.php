@@ -26,7 +26,8 @@ class ScheduleController extends Controller
             ]);
         } else {
             return view('schedule.index', [
-                'schedules' => Schedule::all(),
+                // 'schedules' => Schedule::all(),
+                'doctors' => Doctor::all(),
             ]);
         }
     }

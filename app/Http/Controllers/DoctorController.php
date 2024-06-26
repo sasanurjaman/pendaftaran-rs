@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DoctorRequest;
 use App\Models\Doctor;
+use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,6 +67,7 @@ class DoctorController extends Controller
                 ->select('users.*', 'doctors.*', 'roles.role_name as role_name')
                 ->where('doctors.id', $doctor->id)
                 ->first(),
+            'schedules' => Schedule::where('doctor_id', $doctor->id)->get(),
         ]);
     }
 

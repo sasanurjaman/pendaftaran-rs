@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->integer('patient_age');
             $table->text('patient_address');
             $table->enum('patient_status', ['Menikah', 'Belum Menikah']);
-            $table->string('patient_image');
+            $table->string('patient_image')->nullable();
             $table->integer('patient_is_bpjs');
             $table->string('patient_file')->nullable();
             $table->softDeletes();

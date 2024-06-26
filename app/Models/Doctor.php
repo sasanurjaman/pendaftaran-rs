@@ -11,4 +11,8 @@ class Doctor extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = [''];
+
+    public function schedules () {
+        return $this->hasMany(Schedule::class);
+    }
 }
