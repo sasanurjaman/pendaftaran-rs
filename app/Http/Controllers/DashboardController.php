@@ -16,20 +16,27 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->role_id == 2) {
-            if (Doctor::where('user_id', Auth::user()->id)->count() == 1) {
+        switch (Auth::user()->role_id) {
+            case 2: // Role Doctor
                 $doctor = Doctor::where('user_id', Auth::user()->id)->first();
-                return redirect()->route('doctor.show', $doctor->id);
-            } else {
-                return redirect()->route('doctor.create');
-            }
-        } else {
-            if (Auth::user()->role_id == 3) {
+                if ($doctor) {
+                    return redirect()->route('doctor.show', $doctor->id);
+                } else {
+                    return redirect()->route('doctor.create');
+                }
+                break;
+
+            case 3: // Role Patient
                 $patient = Patient::where('user_id', Auth::user()->id)->first();
-                return redirect()->route('patient.show', $patient->id);
-            } else {
+                if ($patient) {
+                    return redirect()->route('patient.show', $patient->id);
+                } else {
+                    return redirect()->route('patient.create');
+                }
+                break;
+
+            default:
                 return view('dashboard');
-            }
         }
     }
 }
